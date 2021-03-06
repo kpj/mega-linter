@@ -385,7 +385,7 @@ class Linter:
         # Disable errors for this linter NAME + _DISABLE_ERRORS, then LANGUAGE + _DISABLE_ERRORS
         if config.get(self.name + "_DISABLE_ERRORS_IF_LESS_THAN"):
             self.disable_errors_if_less_than = int(
-                self.name + "_DISABLE_ERRORS_IF_LESS_THAN"
+                config.get(self.name + "_DISABLE_ERRORS_IF_LESS_THAN")
             )
         if self.disable_errors_if_less_than is not None:
             self.disable_errors = False
@@ -554,7 +554,7 @@ class Linter:
         )
         cwd = os.path.abspath(cwd)
         logging.debug(f"[{self.linter_name}] CWD: {cwd}")
-        subprocess_env = {**os.environ, 'FORCE_COLOR': '0'}
+        subprocess_env = {**os.environ, "FORCE_COLOR": "0"}
         if type(command) == str:
             # Call linter with a sub-process
             process = subprocess.run(
